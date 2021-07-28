@@ -2,8 +2,6 @@
 #include <iostream>>
 void DSARecursion::HeadRecursion(int n)
 {
-
-	//printf("%d ", "Testing.. HeadRecursion");
 	if (n > 0)
 	{
 		HeadRecursion(n-1);
@@ -13,7 +11,6 @@ void DSARecursion::HeadRecursion(int n)
 
 void DSARecursion::TailRecursion(int n)
 {
-//	printf("%d ", "Testing.. TailRecursion");
 	if (n > 0)
 	{
 		printf("%d ", n);
@@ -67,6 +64,12 @@ void DSARecursion::IndirectRecursionB(int n)
 		IndirectRecursionA(n / 2);
 	}
 }
+int DSARecursion::NestedRecursion(int n)
+{
+	if (n > 100)
+		return n - 10;
+	return NestedRecursion(NestedRecursion(n + 11));
+}
 void DSARecursion::TestHeadRecursion()
 {
 	std::cout << "\nTesting HeadRecursion()" << std::endl;
@@ -107,5 +110,14 @@ void DSARecursion::TestIndirectRecursion()
 
 	IndirectRecursionA(20);
 	
+}
+
+void DSARecursion::TestNestedRecursion()
+{
+	std::cout << "\nTesting NestedRecursion()" << std::endl;
+	int r;
+	r = NestedRecursion(50);
+	printf("%d\n", r);
+
 }
 

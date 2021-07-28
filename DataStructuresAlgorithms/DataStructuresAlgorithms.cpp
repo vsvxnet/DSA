@@ -11,8 +11,8 @@ int main()
 	//dsaRecursion->TestTailRecursion();
 	//dsaRecursion->TestSumRecursion();
 	//dsaRecursion->TestTreeRecursion();
-	dsaRecursion->TestIndirectRecursion();
-
+	//dsaRecursion->TestIndirectRecursion();
+	dsaRecursion->TestNestedRecursion();
 	return 0;
 }
 

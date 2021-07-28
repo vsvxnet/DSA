@@ -9,6 +9,7 @@ private:
 	void TreeRecursion(int n);
 	void IndirectRecursionA(int n);
 	void IndirectRecursionB(int n);
+	int NestedRecursion(int n);
 
 public:
 	void TestHeadRecursion();
@@ -16,4 +17,5 @@ public:
 	void TestSumRecursion();
 	void TestTreeRecursion();
 	void TestIndirectRecursion();
+	void TestNestedRecursion();
 };
