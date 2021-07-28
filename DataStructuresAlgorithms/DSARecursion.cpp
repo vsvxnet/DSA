@@ -30,6 +30,27 @@ int DSARecursion::SumRecursion(int n)
 	return 0;
 }
 
+int DSARecursion::SumRecursionStatic(int n)
+{
+	static int x = 0; // variable created at compile-time
+	if (n > 0)
+	{
+		x++;
+		return SumRecursionStatic(n - 1) + x;
+	}
+	return 0;
+}
+
+void DSARecursion::TreeRecursion(int n)
+{
+	if (n > 0)
+	{
+		printf("%d ", n);
+		TreeRecursion(n - 1);
+		TreeRecursion(n - 1);
+	}
+}
+
 
 void DSARecursion::TestHeadRecursion()
 {
@@ -49,5 +70,17 @@ void DSARecursion::TestTailRecursion()
 void DSARecursion::TestSumRecursion()
 {
 	int x = 10;
+	std::cout << "\nTesting SumRecursion()" << std::endl;
 	printf("%d ", SumRecursion(x));
+
+	std::cout << "\nTesting SumRecursion(static)" << std::endl;
+	printf("%d ", SumRecursionStatic(x));
+
 }
+
+void DSARecursion::TestTreeRecursion()
+{
+	int x = 5;
+	TreeRecursion(x);
+}
+

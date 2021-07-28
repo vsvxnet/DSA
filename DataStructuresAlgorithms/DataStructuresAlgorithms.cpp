@@ -9,7 +9,8 @@ int main()
 	DSARecursion *dsaRecursion = new DSARecursion();
 	//dsaRecursion->TestHeadRecursion();
 	//dsaRecursion->TestTailRecursion();
-	dsaRecursion->TestSumRecursion();
+	//dsaRecursion->TestSumRecursion();
+	dsaRecursion->TestTreeRecursion();
 
 	return 0;
 }
