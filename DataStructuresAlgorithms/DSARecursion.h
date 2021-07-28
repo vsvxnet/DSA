@@ -7,9 +7,13 @@ private:
 	int SumRecursion(int n);
 	int SumRecursionStatic(int n);
 	void TreeRecursion(int n);
+	void IndirectRecursionA(int n);
+	void IndirectRecursionB(int n);
+
 public:
 	void TestHeadRecursion();
 	void TestTailRecursion();
 	void TestSumRecursion();
 	void TestTreeRecursion();
+	void TestIndirectRecursion();
 };

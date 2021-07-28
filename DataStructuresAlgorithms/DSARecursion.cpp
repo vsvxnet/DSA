@@ -51,7 +51,22 @@ void DSARecursion::TreeRecursion(int n)
 	}
 }
 
-
+void DSARecursion::IndirectRecursionA(int n)
+{
+	if (n > 0)
+	{
+		printf("%d ", n);
+		IndirectRecursionB(n - 1);
+	}
+}
+void DSARecursion::IndirectRecursionB(int n)
+{
+	if (n > 1)
+	{
+		printf("%d ", n);
+		IndirectRecursionA(n / 2);
+	}
+}
 void DSARecursion::TestHeadRecursion()
 {
 	std::cout << "\nTesting HeadRecursion()" << std::endl;
@@ -80,7 +95,17 @@ void DSARecursion::TestSumRecursion()
 
 void DSARecursion::TestTreeRecursion()
 {
+	std::cout << "\nTesting TreeRecursion()" << std::endl;
+
 	int x = 5;
 	TreeRecursion(x);
+}
+
+void DSARecursion::TestIndirectRecursion()
+{
+	std::cout << "\nTesting IndirectRecursion()" << std::endl;
+
+	IndirectRecursionA(20);
+	
 }
 

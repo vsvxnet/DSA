@@ -10,7 +10,8 @@ int main()
 	//dsaRecursion->TestHeadRecursion();
 	//dsaRecursion->TestTailRecursion();
 	//dsaRecursion->TestSumRecursion();
-	dsaRecursion->TestTreeRecursion();
+	//dsaRecursion->TestTreeRecursion();
+	dsaRecursion->TestIndirectRecursion();
 
 	return 0;
 }
