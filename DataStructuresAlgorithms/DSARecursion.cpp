@@ -21,6 +21,16 @@ void DSARecursion::TailRecursion(int n)
 	}
 }
 
+int DSARecursion::SumRecursion(int n)
+{
+	if (n > 0)
+	{
+		return SumRecursion(n - 1) + n;
+	}
+	return 0;
+}
+
+
 void DSARecursion::TestHeadRecursion()
 {
 	std::cout << "\nTesting HeadRecursion()" << std::endl;
@@ -34,4 +44,10 @@ void DSARecursion::TestTailRecursion()
 	std::cout << "\nTesting TailRecursion()" << std::endl;
 	int x = 10;
 	HeadRecursion(x);
+}
+
+void DSARecursion::TestSumRecursion()
+{
+	int x = 10;
+	printf("%d ", SumRecursion(x));
 }

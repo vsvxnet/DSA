@@ -7,8 +7,9 @@ using namespace std;
 int main()
 {
 	DSARecursion *dsaRecursion = new DSARecursion();
-	dsaRecursion->TestHeadRecursion();
-	dsaRecursion->TestTailRecursion();
+	//dsaRecursion->TestHeadRecursion();
+	//dsaRecursion->TestTailRecursion();
+	dsaRecursion->TestSumRecursion();
 
 	return 0;
 }
