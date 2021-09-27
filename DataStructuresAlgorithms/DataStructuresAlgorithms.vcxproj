@@ -140,10 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DataStructuresAlgorithms.cpp" />
-    <ClCompile Include="DSARecursion.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DSARecursion.h" />
+    <ClInclude Include="MemoryCell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
