@@ -18,13 +18,10 @@
     <ClCompile Include="DataStructuresAlgorithms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DSARecursion.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DSARecursion.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="MemoryCell.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
