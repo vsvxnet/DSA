@@ -84,7 +84,7 @@ int main()
 			myList.Display();
 		}
 			cout << "Binary search \"4\", index =" << myList.BinarySearch(4) << endl;
-			cout << "Recursive binary search \"4\", index =" << myList.RecursiveBinarySearch(0, myList.GetLength(), 4) << endl;
+	//		cout << "Recursive binary search \"4\", index =" << myList.RecursiveBinarySearch(0, myList.GetLength(), 4) << endl;
 
 		
 		
