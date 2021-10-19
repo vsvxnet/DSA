@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataStructuresAlgorithms", "DataStructuresAlgorithms\DataStructuresAlgorithms.vcxproj", "{E2910BF1-3556-43E6-BB6E-72139CDA066E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DSA", "DSA\DSA.vcxproj", "{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{E2910BF1-3556-43E6-BB6E-72139CDA066E}.Release|x64.Build.0 = Release|x64
 		{E2910BF1-3556-43E6-BB6E-72139CDA066E}.Release|x86.ActiveCfg = Release|Win32
 		{E2910BF1-3556-43E6-BB6E-72139CDA066E}.Release|x86.Build.0 = Release|Win32
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Debug|x64.ActiveCfg = Debug|x64
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Debug|x64.Build.0 = Debug|x64
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Debug|x86.ActiveCfg = Debug|Win32
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Debug|x86.Build.0 = Debug|Win32
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Release|x64.ActiveCfg = Release|x64
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Release|x64.Build.0 = Release|x64
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Release|x86.ActiveCfg = Release|Win32
+		{BD748C66-CDEF-4ED9-A2C0-AB952372FCC1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
