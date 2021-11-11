@@ -523,19 +523,18 @@ public:
 	}
 	void IReverseLinkedList(Node *head)
 	{
-		/* Node* curr = head;
-		Node* prev = NULL;
-		Node* tmp = NULL;
+		Node* tempNode = NULL;
+		Node* prevNode = NULL;
+		Node* currentNode = head;
 
-		while (curr!= NULL)
+		while (currentNode != NULL)
 		{
-			tmp = curr->next;
-			curr->next = prev;
-			prev = curr;
-			curr = tmp;
+			tempNode = currentNode->next;
+			currentNode->next = prevNode;
+			prevNode = currentNode;
+			currentNode = tempNode;
 		}
-		head = prev;
-		*/
+		head = prevNode;
 	}
 
 };
