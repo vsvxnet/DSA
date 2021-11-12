@@ -232,8 +232,15 @@ public:
 
 	int RGetLastIndex(int arr[], int length, int target, int i)
 	{
-		if(i == -1) return -3;
-		if (arr[i] == target) { return i; }
+		if (i == -1)
+		{
+			return -3;
+		}
+		if (arr[i] == target)
+		{
+			return i;
+		}
+		return RGetLastIndex(arr, length, target, i - 1);
 	}
 
 	void RPrintPositions(int arr[], int length, int target, int i)
@@ -326,6 +333,110 @@ public:
 		return 1 + RGetLength(input+1);
 	}
 
+	void RReplaceCharacter(char input[], char replaceTarget, char replaceWith)
+	{
+		if (input[0] == '\0') return ;
+
+		if (input[0] == replaceTarget)
+		{
+			input[0] = replaceWith;
+		}
+		return RReplaceCharacter(input + 1, replaceTarget, replaceWith);
+	}
+
+	void RRemoveCharacter(char input[], char removeTarget)
+	{
+		if (input[0] == '\0')
+		{
+			return;
+		}
+
+		if (input[0] != removeTarget)
+		{
+			RRemoveCharacter(input + 1, removeTarget);
+		}
+		else
+		{
+			for (int i = 0; input[i] != '\0'; i++)
+			{
+				input[i] = input[i + 1];
+			}
+			RRemoveCharacter(input, removeTarget);
+		}
+	}
+
+	void RRemoveConsecutiveDuplicates(char input[])
+	{
+		if (input[0] == '\0')
+		{
+			return;
+		}
+
+		if (input[0] != input[1])
+		{
+			RRemoveConsecutiveDuplicates(input + 1);
+		}
+		else
+		{
+			for (int i = 0; input[i] != '\0'; i++)
+			{
+				input[i] = input[i + 1];
+			}
+			RRemoveConsecutiveDuplicates(input);
+		}
+	}
+
+	void RPrintSubsequence(string input, string output)
+	{
+		if (input.length() == 0)
+		{
+			cout << output << endl;
+			return ;
+		}
+		RPrintSubsequence(input.substr(1), output + input[0]);
+		RPrintSubsequence(input.substr(1), output);
+	}
+
+	void RStoreSubsequence(string input, string output, vector<string>& v)
+	{
+		if(input.length() == 0)
+		{
+			v.push_back(output);
+			return;
+		}
+
+		RStoreSubsequence(input.substr(1), output + input[0],v);
+		RStoreSubsequence(input.substr(1), output,v);
+	}
+	
+	void RPrintPermutations(string str, int i = 0)
+	{
+		if (str[i] == '\0')
+		{
+			cout << str << endl;
+		}
+		for (int j = i; str[j] != '\0'; j++)
+		{
+			swap(str[i], str[j]);
+			RPrintPermutations(str, i + 1);
+			swap(str[i], str[j]);
+		}
+	}
+
+	int CountStaircaseSteps(int n)
+	{
+		if (n == 0 || n == 1)
+		{
+			return 1;
+		}
+
+		if (n < 0)
+		{
+			return 0;
+		}
+
+		return CountStaircaseSteps(n - 1) + CountStaircaseSteps(n - 2) + CountStaircaseSteps(n - 3);
+	}
 	// Merge Sort & QuickSort
 
 	void MergeArray(int* arr, int s, int e)
@@ -521,21 +632,128 @@ public:
 		}
 		return slow;
 	}
-	void IReverseLinkedList(Node *head)
+	Node* IReverseLinkedList(Node*head)
 	{
-		Node* tempNode = NULL;
-		Node* prevNode = NULL;
-		Node* currentNode = head;
+		Node* current = head;
+		Node* prev = NULL, * next = NULL;
 
-		while (currentNode != NULL)
+		while (current != NULL)
 		{
-			tempNode = currentNode->next;
-			currentNode->next = prevNode;
-			prevNode = currentNode;
-			currentNode = tempNode;
+			// store next
+			next = current->next;
+			
+			// reverse current->next
+			current->next = prev;
+
+			// move pointer one position head
+			prev = current;
+			current = next;
 		}
-		head = prevNode;
+		head = prev;
+		return head;
 	}
+	Node* RReverseLinkedList(Node* head)
+	{
+		if (head == NULL || head->next == NULL)
+		{
+			return head;
+		}
+
+		Node* rest = RReverseLinkedList(head->next);
+		head->next->next = head;
+
+		head->next = NULL;
+
+		return rest;
+	}
+	Node* IRemoveLinkedListNodeAtIndex(Node* head, int k)
+	{
+		Node* one = head;
+		Node* two = head;
+
+		while (k--) { /// k times
+			two = two->next;
+		}
+		if (two == NULL) {   /// length of ll = k  => delete head node
+			return one->next;
+		}
+		while (two->next != NULL) {
+			one = one->next;
+			two = two->next;
+		}
+
+		/// delete kth node from end
+		one->next = one->next->next;      /// memory leak
+
+		return head;
+	}
+
+	Node* IMergeLinkedList(Node* l1, Node* l2)
+	{
+		if (l1 == NULL) return l2;
+		if (l2 == NULL) return l1;
+
+		Node* finalHead = NULL;
+
+		if (l1->data < l2->data)
+		{
+			finalHead = l1;
+			l1 = l1->next;
+		}
+		else
+		{
+			finalHead = l2;
+			l2 = l2->next;
+		}
+
+		Node* p = finalHead;
+
+		while (l1 && l2)
+		{
+			if (l1->data < l2->data)
+			{
+				p->next = l1;
+				l1 = l1->next;
+			}
+			else
+			{
+				p->next = l2;
+				l2 = l2->next;
+			}
+			p = p->next;
+		}
+
+		if (l1)
+		{
+			p->next = l1;
+		}
+		else
+		{
+			p->next = l2;
+		}
+		return finalHead;
+	}
+	
+	Node* RMergeLinkedList(Node* a, Node* b)
+	{
+		if (a == NULL) return b;
+		if (b == NULL) return a;
+
+		Node* newHead = NULL;
+		if (a->data < b->data)
+		{
+			newHead = a;
+			newHead->next = RMergeLinkedList(a->next, b);
+		}
+		else
+		{
+			newHead = b;
+			newHead->next = RMergeLinkedList(a, b->next);
+		}
+		return newHead;
+	}
+
+
 
 };
 

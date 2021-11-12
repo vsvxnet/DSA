@@ -100,6 +100,40 @@ int main()
 	int length3 = (sizeof(arr3) / sizeof(arr3[0]));
 	cout << "IsPalindrome? " << mHelper.RCheckPalindrome(arr3, 0, length3-1) << endl;
 
+	cout << "Attempting character replace: ";
+	char arr4[] = "TThhis iis somme strring";
+	mHelper.RReplaceCharacter(arr4, 't', 'x');
+	cout << arr4 << endl;
+
+	cout << "Attempting character remove: ";
+	mHelper.RRemoveCharacter(arr4, 's');
+	cout << arr4 << endl;
+
+	cout << "Attempting remove consecutive duplicates: ";
+	mHelper.RRemoveConsecutiveDuplicates(arr4);
+	cout << arr4 << endl;
+
+	string str2 = "abcd";
+	cout << "Printing all subsequence of string: " << endl;
+	mHelper.RPrintSubsequence(str2,"");
+
+	vector<string> vec1;
+	
+	mHelper.RStoreSubsequence(str2, "", vec1);
+	cout << "There are " << vec1.size() << " subsequences" << endl;
+	for (int i = 0; i < vec1.size(); i++)
+	{
+		cout << vec1[i] << " ";
+	}
+	cout << endl;
+
+	cout << "Printing all permutations of " << str2 << endl;
+	mHelper.RPrintPermutations(str2);
+
+	cout << endl;
+	cout << endl;
+
+
 	// LinkedList
 	Node n1(1);
 	Node* head = &n1;
@@ -130,12 +164,17 @@ int main()
 
 	mHelper.IDeleteLinkedListAtIndex(head, 3);
 	mHelper.IPrintLinkedList(head);
-
+	cout << endl;
 	cout << "LinkedList length (recursive) = " << mHelper.RGetLength(head) << endl;
 	cout << "Reversing linkedlist " << endl;
 	mHelper.IPrintLinkedList(head);
-	mHelper.IReverseLinkedList(head);
+	head = mHelper.IReverseLinkedList(head);
 	mHelper.IPrintLinkedList(head);
+
+	head = mHelper.IRemoveLinkedListNodeAtIndex(head, 3);
+	mHelper.IPrintLinkedList(head);
+
+	
 
 
 
