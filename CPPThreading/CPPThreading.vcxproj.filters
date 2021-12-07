@@ -15,15 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MemoryCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DSAHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="CPPThreading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

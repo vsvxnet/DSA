@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "DSAInterview.h"
 #include "DSAHelper.h"
 #include <vector>
 #include <algorithm>
@@ -8,133 +7,63 @@ using namespace std;
 
 int main()
 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	DSAHelper mHelper;
 
-	// ARRAYS
-	int arr1[7] = { 1,2,3,4,4,4,5 };
-	int length = (sizeof(arr1) / sizeof(arr1[0]));
+	vector<int> arr1 = { 1,4,3,5,9,7,8,2,6 };
+	vector<int> arr2 = { 1,2,3,4,5};
+	mHelper.PrintArray(arr1);
+	mHelper.PrintArrayReverse(arr1);
+	int sum1 = mHelper.SumArray(arr1);
+	cout << "Sum of Array:  " << sum1 << endl;
 
-	mHelper.IPrintArray(arr1, length);
-	cout << "ISumArray: " << mHelper.ISumArray(arr1, length) << endl;
-	pair<int, int> pair_minmax = mHelper.GetMinMaxIndex(arr1, length);
-
-	cout << "Smallest Element Index: " << pair_minmax.first << " Value=" << arr1[pair_minmax.first] << endl;
-	cout << "Largest Element Index: " << pair_minmax.second << " Value=" << arr1[pair_minmax.second] << endl;
-
-	mHelper.IPrintArrayReverse(arr1, length);
-
-	mHelper.IReverseArray(arr1, length);
-	mHelper.IPrintArray(arr1, length);
-
-	if (!mHelper.IIsSorted(arr1, length))
-	{
-		cout << "Array is not sorted.. (selection-sort in process)" << endl;
-		mHelper.ISelectionSort(arr1, length);
-		mHelper.IPrintArray(arr1, length);
-	}
+	cout << "Is Sorted? : " << mHelper.IsArraySorted(arr1) << endl;
+	cout << "Is Sorted? : " << mHelper.IsArraySorted(arr2) << endl;
 	
-	mHelper.IReverseArray(arr1, length);
-	if (!mHelper.IIsSorted(arr1, length))
-	{
-		cout << "Array is not sorted.. (bubble-sort in process)" << endl;
-		mHelper.IBubbleSort(arr1, length);
-		mHelper.IPrintArray(arr1, length);
-	}
-
-	int target1 = 4;
-	int targetindex = mHelper.ILinearSearch(arr1, length, target1);
-	cout << "Linear searching for value ( " << target1 << " ) exists at index " << targetindex << endl;
-
-	targetindex = mHelper.IBinarySearch(arr1, length, target1);
-	cout << "Binary searching for value ( " << target1 << " ) exists at index " << targetindex << endl;
+	int largest_index = mHelper.GetLargestValueIndex(arr1);
+	int smallest_index = mHelper.GetSmallestValueIndex(arr1);
+	cout << "Largest element index = " << largest_index << " with value = " << arr1[largest_index] << endl;
+	cout << "Smallest element index = " << smallest_index << " with value = " << arr1[smallest_index] << endl;
 
 
-	cout << endl;
-	cout << endl;
-	// CHAR ARRAY
-	char arr2[10] = "MyCha";
-	mHelper.IPrintArray(arr2);
-	cout << "Length of string: " << mHelper.IGetLength(arr2) << endl;
+	cout << "Before reverse-> ";
+	mHelper.PrintArray(arr1);
+	mHelper.ReverseArray(arr1);
+	cout << "After reverse-> ";
+	mHelper.PrintArray(arr1);
 
-	mHelper.IReverseArray(arr2);
-	mHelper.IPrintArray(arr2);
+	char carr1[] = "this is a string";
+	int count1 = mHelper.GetLength(carr1);
+	cout << "Length of string < " << carr1 << " > is: " << count1 << endl;
+	mHelper.ReverseArray(carr1);
+	cout << carr1 << endl;
 
-	// VECTORS
-	vector<int> v1(10,-2);
-	vector<int> v2(100);
-
-	mHelper.IPrintVector(v1);
-
-	// RECURION
-	if (!mHelper.RIsSorted(arr1, length))
-	{
-		cout << "Array is not sorted.. (recursive)" << endl;
-	}
-	else
-	{
-		cout << "Array is sorted.. (recursive)" << endl;
-
-	}
-
-	mHelper.RPrintArrayHead(arr1, length,0);
-	cout << endl; 
-	mHelper.RPrintArrayTail(arr1, length, 0);
-	cout << endl;
-	int value_bucket = mHelper.RSumArray(arr1, length);
-	cout << "Recursive sum: " << value_bucket << endl;
-	value_bucket = mHelper.RGetFirstIndex(arr1, length, 4, 0);
-	cout << "First index: " << value_bucket<<endl;
-	value_bucket = mHelper.RGetLastIndex(arr1, length, 4, 0);
-	cout << "Last index: " << value_bucket<<endl;
-	cout << "Counting occurance of 4: " << mHelper.RCountOccurance(arr1, length, target1, 0);
-
-	vector<int> positions1;
-	mHelper.RSaveAllPositions(arr1, length, target1, 0, positions1);
-	cout << endl;
-	mHelper.RPrintVector(positions1, positions1.size(), 0);
-	cout << endl;
+	int target1 = 7;
+	int pos1 = mHelper.LinearSearch(arr1, target1);
+	cout << "(LS) Position of " << target1 << " is :" << pos1 << endl;
+	pos1 = mHelper.BinarySearch(arr1, target1);
+	cout << "(BS) Position of " << target1 << " is :" << pos1 << endl;
 	
-	cout << "IsPalindrome? " << mHelper.RCheckPalindrome(arr1, 0, length-1) << endl;
-
-	int arr3[6] = { 1,2,3,3,2,1 };
-	int length3 = (sizeof(arr3) / sizeof(arr3[0]));
-	cout << "IsPalindrome? " << mHelper.RCheckPalindrome(arr3, 0, length3-1) << endl;
-
-	cout << "Attempting character replace: ";
-	char arr4[] = "TThhis iis somme strring";
-	mHelper.RReplaceCharacter(arr4, 't', 'x');
-	cout << arr4 << endl;
-
-	cout << "Attempting character remove: ";
-	mHelper.RRemoveCharacter(arr4, 's');
-	cout << arr4 << endl;
-
-	cout << "Attempting remove consecutive duplicates: ";
-	mHelper.RRemoveConsecutiveDuplicates(arr4);
-	cout << arr4 << endl;
-
-	string str2 = "abcd";
-	cout << "Printing all subsequence of string: " << endl;
-	mHelper.RPrintSubsequence(str2,"");
-
-	vector<string> vec1;
-	
-	mHelper.RStoreSubsequence(str2, "", vec1);
-	cout << "There are " << vec1.size() << " subsequences" << endl;
-	for (int i = 0; i < vec1.size(); i++)
-	{
-		cout << vec1[i] << " ";
-	}
-	cout << endl;
-
-	cout << "Printing all permutations of " << str2 << endl;
-	mHelper.RPrintPermutations(str2);
-
+	cout << "Sorted? " << mHelper.RCheckSorted(arr1) << endl;
+	cout << "RSumArray= " << mHelper.RSumArray(arr1) << endl;
 	cout << endl;
 	cout << endl;
+	cout << "Linked List Section: " << endl;
 
-
-	// LinkedList
 	Node n1(1);
 	Node* head = &n1;
 
@@ -148,33 +77,27 @@ int main()
 	n3.next = &n4;
 	n4.next = &n5;
 
-	mHelper.IPrintLinkedList(head);
-	cout << "LinkedList length = " << mHelper.IGetLength(head) << endl;
+	mHelper.PrintLinkedList(head);
+	head = &n1;
+	cout << "Length of list is : " << mHelper.GetLength(head) << endl;
+	head = &n1;
+	int ith = 3;
+	cout << "Value at index = " << ith << " is = ";
+	mHelper.PrintNodeValue(head, ith);
+
+	head = &n1;
+
+	int insert_value = 33;
+	mHelper.InsertNode(head, ith, insert_value);
 	
-	cout << "Printing LL at index 3 = ";
-	mHelper.IPrintLinkedListAtIndex(head, 3);
+	head = &n1;
+	cout << "Value at index = " << ith << " is = ";
+	mHelper.PrintNodeValue(head, ith);
+	head = &n1;
+	mHelper.PrintLinkedList(head);
 
-	cout << "Inserting at index 3 ";
-	mHelper.IInsertLinkedListAtIndex(head, 3, 6);
-	mHelper.IInsertLinkedListAtIndex(head, 3, 7);
-	mHelper.IInsertLinkedListAtIndex(head, 3, 8);
-	cout << endl;
-	mHelper.IPrintLinkedList(head);
-	cout << "Deleting at index 3 " << endl;
 
-	mHelper.IDeleteLinkedListAtIndex(head, 3);
-	mHelper.IPrintLinkedList(head);
-	cout << endl;
-	cout << "LinkedList length (recursive) = " << mHelper.RGetLength(head) << endl;
-	cout << "Reversing linkedlist " << endl;
-	mHelper.IPrintLinkedList(head);
-	head = mHelper.IReverseLinkedList(head);
-	mHelper.IPrintLinkedList(head);
 
-	head = mHelper.IRemoveLinkedListNodeAtIndex(head, 3);
-	mHelper.IPrintLinkedList(head);
-
-	
 
 
 

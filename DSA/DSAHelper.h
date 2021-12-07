@@ -1,179 +1,172 @@
 #ifndef DSAHelper_H
 #define DSAHelper_H
-#include "Node.h"
+#include <vector>
+#include <stack>
+#include <queue>
+#include <algorithm>
+
 using namespace std;
 
+template <typename T> class BTNode
+{
+public:
+	T data;
+	BTNode* left;
+	BTNode* right;
+	BTNode(T data)
+	{
+		this->data = data;
+		left = NULL;
+		right = NULL;
+	}
+	~BTNode()
+	{
+		delete left;
+		delete right;
+	}
+
+};
+
+template <typename T> class TreeNode
+{
+public:
+	T data;
+	vector<TreeNode<T>*> children;
+	TreeNode(T data) {
+		this->data = data;
+	}
+};
+
+class Node
+{
+public:
+	int data;
+	Node* next;
+	Node(int data)
+	{
+		this->data = data;
+		next = NULL;
+	}
+};
 class DSAHelper
 {
 public:
-	// ARRAYS
-	void IReverseArray(int arr[], int length)
+	void PrintArray(vector<int> nums)
 	{
-		cout << "Reversing array.." << endl;
-		int s = 0, e = length - 1;
+		cout << "Printing Array: ";
 
-		while (s <= e)
+		for (int i = 0; i < nums.size(); i++)
 		{
-			swap(arr[s], arr[e]);
-			s++;
-			e--;
+			cout << nums[i] << " ";
 		}
+		cout << endl;
 	}
+	void PrintArrayReverse(vector<int> nums)
+	{
+		cout << "Printing Array Reverse: ";
+
+		for (int i = nums.size() - 1; i >= 0; i--)
+		{
+			cout << nums[i] << " ";
+		}
+
+		cout << endl;
 	
-	void IPrintArray(int arr[], int length)
-	{
-		cout << "IPrinting Array: ";
-		for (int i = 0; i < length; i++)
-		{
-			cout << arr[i] << " ";
-		}
-		cout << endl;
 	}
-	void IPrintArrayReverse(int arr[], int length)
+	int SumArray(vector<int> nums)
 	{
-		cout << "IPrinting Array Reverse: ";
-		for (int i = length-1; i >=0; i--)
+		int sum = 0; 
+
+		for (int i = 0; i < nums.size(); i++)
 		{
-			cout << arr[i] << " ";
-		}
-		cout << endl;
-	}
-
-
-	int ISumArray(int arr[], int length)
-	{
-		int answer = 0;
-
-		for (int i = 0; i < length; i++)
-		{
-			answer += arr[i];
+			sum += nums[i];
 		}
 
-		return answer;
+		return sum;
 	}
-	pair<int, int> GetMinMaxIndex(int arr[], int length)
+	bool IsArraySorted(vector<int> nums)
 	{
-		int small = 0, large = 0;
-		for (int i = 0; i < length; i++)
+		if (nums.size() == 0 || nums.size() == 1)
 		{
-			if (arr[i]< arr[small])
-			{
-				small = i;
-			}
-			else if (arr[i] > arr[large])
-			{
-				large=i;
-			}
+			return true;
 		}
-		return make_pair(small, large);
-		
-	}
-	bool IIsSorted(int arr[], int length)
-	{
-		if (length == 1) return true;
 
-		for (int i = 1; i < length; i++)
+		for (int i = 0; i < nums.size()-1; i++)
 		{
-			if (arr[i] > arr[i + 1])
+			if (nums[i] > nums[i + 1])
 			{
 				return false;
 			}
 		}
 		return true;
 	}
-
-	void ISelectionSort(int arr[], int length)
-	{
-		for (int i = 0; i <= length - 2; i++)
-		{
-			int smallest = i;
-			for (int j = i + 1; j <= length - 1; j++)
-			{
-				if (arr[j] < arr[smallest])
-				{
-					smallest = j;
-				}
-			}
-			swap(arr[i], arr[smallest]);
-		}
-	}
-	void IBubbleSort(int arr[], int length)
-	{
-		for (int count = 1; count <= length - 1; count++)
-		{
-			int flag = 0;
-			for (int j = 0; j <= length - 2; j++)
-			{
-				if (arr[j] > arr[j + 1])
-				{
-					swap(arr[j], arr[j + 1]);
-					flag = 1; 
-				}
-			}
-			if (flag == 0)
-			{	// already sorted, break;
-				break;
-			}
-		}
-	}
 	
-	int ILinearSearch(int arr[], int length, int target)
+	int GetLargestValueIndex(vector<int> nums)
 	{
-		for (int i = 0; i < length - 1; i++)
+		if (nums.size() == 0)
+			return -1;
+		if (nums.size() == 1)
 		{
-			if (arr[i] == target)
-			{
-				return i;
-			}
+			return 0;
 		}
-		return -1;
+
+		int idx = 0, max = nums[idx];
+
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] > max)
+			{
+				max = nums[i];
+				idx = i;
+			}
+			
+		}
+		
+		return idx;
 	}
 
-	int IBinarySearch(int arr[], int length, int target)
+	int GetSmallestValueIndex(vector<int> nums)
 	{
-		int s = 0, e = length - 1;
-
-		while (s <= e)
+		if (nums.size() == 0)
 		{
-			int mid = (s + e) / 2;
-			if (arr[mid] == target)
+			return -1;
+		}
+		if (nums.size() == 1)
+		{
+			return 1;
+		}
+
+		int idx = 0, min = nums[idx];
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] < min)
 			{
-				return mid;
-			}
-			else if (target < arr[mid])
-			{
-				e = mid - 1;
-			}
-			else if (arr[mid] < target)
-			{
-				s = mid + 1;
+				min = nums[i];
+				idx = i;
 			}
 		}
-		return -1;
+
+		return idx;
 	}
 
-	// CHAR ARRAYS
-	void IPrintArray(char arr[])
+	void ReverseArray(vector<int>& nums)
 	{
-		cout << "Iterative Print Array(char): ";
-		for (int i = 0; arr[i] != '\0'; i++)
+		if (nums.size() == 0)
 		{
-			cout << arr[i]<<" ";
+			return;
 		}
-		cout << endl;
-	}
-	void IReverseArray(char arr[])
-	{
-		int s = 0, e = IGetLength(arr) - 1;
+		int start = 0;
+		int end = nums.size() - 1;
 
-		while (s <= e)
+		while (start <= end)
 		{
-			swap(arr[s], arr[e]);
-			s++;
-			e--;
+			swap(nums[start], nums[end]);
+			start++;
+			end--;
 		}
 	}
-	int IGetLength(char input[])
+
+	int GetLength(char input[])
 	{
 		int count = 0;
 		for (int i = 0; input[i] != '\0'; i++)
@@ -182,110 +175,288 @@ public:
 		}
 		return count;
 	}
-	
-	// VECTORS
-	void IPrintVector(vector<int>& v)
+
+	void ReverseArray(char input[])
 	{
-		cout << "Iterative Print Vector: ";
-		int length = v.size();
-		
-		for (int i = 0; i < v.size(); i++)
+		int start = 0;
+		int end = GetLength(input) - 1;
+		while (start <= end)
 		{
-			cout << v[i] << " ";
+			swap(input[start++], input[end--]);
 		}
-		cout << endl;
-	
 	}
 
-	// RECURSION
-
-	bool RIsSorted(int arr[], int length)
+	int LinearSearch(vector<int> nums, int target)
 	{
-		if (length == 0 || length == 1)
+		for (int i = 0; i < nums.size(); i++)
 		{
-			return true;
+			if (nums[i] == target)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	int BinarySearch(vector<int> nums, int target)
+	{
+		bool issorted = IsArraySorted(nums);
+		if (!issorted )
+		{
+			cout << "Array is not sorted." << endl;
+			return -1;
+		}
+	
+		int start = 0;
+		int end = nums.size() - 1;
+
+		while (start <= end)
+		{
+			int mid = start + (end - start) / 2;
+
+			if (nums[mid] == target)
+			{
+				return mid;
+			}
+			else if (nums[mid] > target)
+			{
+				end = mid - 1;
+			}
+			else if (nums[mid] > target)
+			{
+				start = mid + 1;
+			}
+		}
+		return -1;
+	}
+
+	int RFactorial(int n) 
+	{
+		if (n == 0)
+		{
+			return 1;
 		}
 
-		if (arr[0] > arr[1])
+		int small_ans = RFactorial(n - 1);
+
+		int ans = n * small_ans;
+		return ans;
+	}
+
+	int RFibonacci(int n)
+	{
+		if (n == 0)
+		{
+			return 0;
+		}
+		if (n == 1)
+		{
+			return 1;
+		}
+
+		int small_ans = RFibonacci(n - 1);
+		int small_ans2 = RFibonacci(n - 2);
+
+		return small_ans + small_ans2;
+	}
+
+	int RPower(int x, int n)
+	{
+		if (n == 0)
+		{
+			return 1;
+		}
+
+		int small_ans = RPower(x, n - 1);
+
+		return x * small_ans;
+	}
+
+	void RPrintTail(int n) {
+
+		if (n == 0) return;
+		RPrintTail(n - 1);
+		cout << n << endl;
+		return;
+	}
+
+	void RPrintHead(int n)
+	{
+		if (n == 0) return;
+		cout << n << endl;
+		RPrintHead(n - 1);
+		return;
+	}
+
+	int RCountDigits(int n)
+	{
+		if (n == 0)
+		{
+			return 0;
+		}
+
+		int small_ans = RCountDigits(n / 10);
+
+		return small_ans + 1;
+	}
+
+	int RSumDigits(int n)
+	{
+		if (n == 0)
+			return 0;
+
+		int small_ans = RSumDigits(n / 10);
+
+		int last_digit = n % 10;
+		return small_ans + last_digit;
+	}
+
+	int RMultiply(int m, int n)
+	{
+		if (n == 0) return 0;
+
+		int small_ans = RMultiply(m, n - 1);
+
+		return small_ans + m;
+	}
+
+	int RCountZeros(int n)
+	{
+		if (n == 0)
+		{
+			return 0;
+		}
+
+		int small_ans = RCountZeros(n / 10);
+		int last_digit = n % 10;
+
+		if (last_digit == 0)
+		{
+			return 1 + small_ans;
+		}
+		else
+		{
+			return small_ans;
+		}
+	}
+	
+	double RGeometricSum(int K)
+	{
+		if (K == 0) return 1;
+
+		double small_ans = RGeometricSum(K - 1);
+
+		return small_ans + 1.0 / RPower(2, K);
+	}
+
+	// Recursion-Medium
+	bool RCheckSorted(vector<int> nums)
+	{
+		if (nums.size() == 0 || nums.size() == 1)
+		{	
+			return true;
+		}
+		if (nums[0] > nums[1])
+		{
+			return false;
+		}
+		vector<int> n(nums.begin() + 1, nums.end());
+		return RCheckSorted(n);
+	}
+	bool RCheckSorted(int nums[], int length)
+	{
+		if (length == 0 || length == 1)
+			return true;
+
+		if (nums[0] > nums[1])
 		{
 			return false;
 		}
 
-		return RIsSorted(arr + 1, length - 1);
-	}
-	int RSumArray(int arr[], int length)
-	{
-		if (length == 0) return 0;
-
-		return arr[0] + RSumArray(arr + 1, length - 1);
+		return RCheckSorted(nums + 1, length - 1);
 	}
 
-	int RGetFirstIndex(int arr[], int length, int target, int i)
+	int RSumArray(vector<int> nums)
 	{
-		if (i ==length) return -1;
-		if (arr[i] == target)
+		if (nums.size() == 0) { return 0; }
+		vector<int> nv(nums.begin() + 1, nums.end());
+		return nums[0] + RSumArray(nv);
+	}
+
+	int RSumArray(int nums[], int length)
+	{
+		if (length == 0) { return 0; }
+
+		return nums[0] + RSumArray(nums + 1, length - 1);
+	}
+
+	int RFirstIndex(int nums[], int length, int target, int idx)
+	{
+		if (idx == length)
 		{
-			return i;
+			return -1;
 		}
-		return RGetFirstIndex(arr, length, target, i + 1);
-	}
-
-	int RGetLastIndex(int arr[], int length, int target, int i)
-	{
-		if (i == -1)
+		if (nums[idx] == target)
 		{
-			return -3;
+			return idx;
 		}
-		if (arr[i] == target)
+
+		return RFirstIndex(nums, length, target, idx + 1);
+	}
+
+	void RPrintAllPositions(int nums[], int length, int target, int idx)
+	{
+		if (idx == length)
 		{
-			return i;
+			return;
 		}
-		return RGetLastIndex(arr, length, target, i - 1);
-	}
 
-	void RPrintPositions(int arr[], int length, int target, int i)
-	{
-		if (i == length) return;
-		if (arr[i] == target)
+		if (nums[idx] == target)
 		{
-			cout << i << " ";
+			cout << idx << " ";
 		}
-		RPrintPositions(arr, length, target, i + 1);
+
+		RPrintAllPositions(nums, length, target, idx + 1);
 	}
 
-	int RCountOccurance(int arr[], int length, int target, int i)
+	void RCountOccurance(int nums[], int length, int target, int idx, int& ans)
 	{
-		if (i == length)
-			return 0;
-
-			if (arr[i] == target)
-			{
-				return 1 + RCountOccurance(arr, length, target, i + 1);
-			}
-			else
-			{
-				return RCountOccurance(arr, length, target, i + 1);
-			}
-	}
-
-	void RSaveAllPositions(int arr[], int length, int target, int i, vector<int>& ans)
-	{
-		if (i == length) { return; }
-
-		if (arr[i] == target)
+		if (idx == length)
 		{
-			ans.push_back(i);
+			return;
 		}
-		RSaveAllPositions(arr, length, target, i + 1, ans);
+
+		if (nums[idx] == target)
+		{
+			ans++;
+		}
+		RCountOccurance(nums, length, target, idx + 1, ans);
+	}
+	
+	void RSaveAllPositions(int nums[], int length, int target, int idx, vector<int>& ans)
+	{
+		if (idx == length)
+		{
+			return;
+		}
+
+		if (nums[idx] == target)
+		{
+			ans.push_back(idx);
+		}
+		RSaveAllPositions(nums, length, target, idx + 1, ans);
 	}
 
-	bool RCheckPalindrome(int arr[], int s, int e)
+	bool RCheckPalindrome(int nums[], int start, int end)
 	{
-		if (s > e) return true;
-
-		if (arr[s] == arr[e])
+		if (start > end)
 		{
-			return RCheckPalindrome(arr, s + 1, e - 1);
+			return true;
+		}
+
+		if (nums[start] == nums[end])
+		{
+			return RCheckPalindrome(nums, start++, end--);
 		}
 		else
 		{
@@ -293,67 +464,59 @@ public:
 		}
 	}
 
-	void RPrintArrayHead(int arr[], int length, int i)
+	//Recursion Advanced
+	void RPrint(char input[])
 	{
-		if (i > length - 1)
+		if (input[0] == '\0')
 		{
 			return;
 		}
-		cout << arr[i] << " ";
-		RPrintArrayHead(arr, length, i + 1);
+		cout << input[0];
+		RPrint(input + 1);
 	}
-
-	void RPrintArrayTail(int arr[], int length, int i)
+	void RPrintReverse(char input[])
 	{
-
-		if (i > length - 1)
+		if (input[0] = '\0')
 		{
-			
 			return;
 		}
-		RPrintArrayTail(arr, length, i + 1);
-		cout << arr[i] << " ";
+		RPrintReverse(input + 1);
+		cout << input[0];
 	}
-
-	void RPrintVector(vector<int> v,int length, int i)
-	{
-		if (i < length)
-		{
-			cout << v[i] << " ";
-			RPrintVector(v, length, i + 1);
-		}
-	}
-
-	int RGetLength(char input[])
+	
+	int RLength(char input[])
 	{
 		if (input[0] == '\0')
 		{
 			return 0;
 		}
-		return 1 + RGetLength(input+1);
+
+		return 1 + RLength(input + 1);
 	}
 
-	void RReplaceCharacter(char input[], char replaceTarget, char replaceWith)
+	void RCharacterReplace(char input[], char target, char replace)
 	{
-		if (input[0] == '\0') return ;
-
-		if (input[0] == replaceTarget)
+		if (input[0] == '\0')
 		{
-			input[0] = replaceWith;
+			return;
 		}
-		return RReplaceCharacter(input + 1, replaceTarget, replaceWith);
+		if (input[0] == target)
+		{
+			input[0] = replace;
+		}
+		RCharacterReplace(input + 1, target, replace);
 	}
 
-	void RRemoveCharacter(char input[], char removeTarget)
+	void RCharacterRemove(char input[], char target)
 	{
 		if (input[0] == '\0')
 		{
 			return;
 		}
 
-		if (input[0] != removeTarget)
+		if (input[0] != target)
 		{
-			RRemoveCharacter(input + 1, removeTarget);
+			RCharacterRemove(input + 1, target);
 		}
 		else
 		{
@@ -361,11 +524,13 @@ public:
 			{
 				input[i] = input[i + 1];
 			}
-			RRemoveCharacter(input, removeTarget);
-		}
+			RCharacterRemove(input, target);
+		}	
+
+	
 	}
 
-	void RRemoveConsecutiveDuplicates(char input[])
+	void RConsecutiveDuplicateRemove(char input[])
 	{
 		if (input[0] == '\0')
 		{
@@ -374,7 +539,7 @@ public:
 
 		if (input[0] != input[1])
 		{
-			RRemoveConsecutiveDuplicates(input + 1);
+			RConsecutiveDuplicateRemove(input + 1);
 		}
 		else
 		{
@@ -382,7 +547,8 @@ public:
 			{
 				input[i] = input[i + 1];
 			}
-			RRemoveConsecutiveDuplicates(input);
+			RConsecutiveDuplicateRemove(input);
+			
 		}
 	}
 
@@ -391,106 +557,157 @@ public:
 		if (input.length() == 0)
 		{
 			cout << output << endl;
-			return ;
-		}
-		RPrintSubsequence(input.substr(1), output + input[0]);
-		RPrintSubsequence(input.substr(1), output);
-	}
-
-	void RStoreSubsequence(string input, string output, vector<string>& v)
-	{
-		if(input.length() == 0)
-		{
-			v.push_back(output);
 			return;
 		}
 
-		RStoreSubsequence(input.substr(1), output + input[0],v);
-		RStoreSubsequence(input.substr(1), output,v);
-	}
+		RPrintSubsequence(input.substr(1), output + input[0]);
+		RPrintSubsequence(input.substr(1), output);
 	
-	void RPrintPermutations(string str, int i = 0)
+	}
+
+	void RStoreSubsequence(string input, string output, vector<string>& ans)
 	{
-		if (str[i] == '\0')
+		if (input.length() == 0)
 		{
-			cout << str << endl;
+			ans.push_back(output);
+			return;
 		}
-		for (int j = i; str[j] != '\0'; j++)
+
+		RStoreSubsequence(input.substr(1), output + input[0], ans);
+		RStoreSubsequence(input.substr(1), output, ans);
+		
+	}
+
+	int RConvertStringToInteger(char str[], int n)
+	{
+		if (n == 0)
 		{
-			swap(str[i], str[j]);
-			RPrintPermutations(str, i + 1);
-			swap(str[i], str[j]);
+			return 0;
+		}
+
+		int small_ans = RConvertStringToInteger(str, n - 1);
+		int last_digit = str[n - 1] - '0';
+		int ans = small_ans * 10 + last_digit;
+		return ans;
+	}
+
+	void RPrintPermutations(char input[], int i = 0)
+	{
+		if (input[i] == '\0')
+		{
+			cout << input << endl;
+			return;
+		}
+
+		for (int j = i; input[j] != '\0'; j++)
+		{
+			swap(input[i], input[j]);
+			RPrintPermutations(input, i + 1);
+			swap(input[i], input[j]);
 		}
 	}
 
-	int CountStaircaseSteps(int n)
+	int RCountStairs(int n)
 	{
 		if (n == 0 || n == 1)
 		{
 			return 1;
-		}
 
+		}
 		if (n < 0)
 		{
 			return 0;
 		}
 
-		return CountStaircaseSteps(n - 1) + CountStaircaseSteps(n - 2) + CountStaircaseSteps(n - 3);
+		return RCountStairs(n - 1) + RCountStairs(n - 2) + RCountStairs(n - 3);
 	}
-	// Merge Sort & QuickSort
 
-	void MergeArray(int* arr, int s, int e)
+	// Merge / Quick Sort
+
+
+	void MergeArrays(int x[], int y[], int nums[], int start, int end)
 	{
-		int mid = (s + e) / 2;
-
-		int i = s;
+		int mid = (start + end) / 2;
+		int i = start;
 		int j = mid + 1;
-		int k = s;
+		int k = start;
 
-		int tmp[1000];
-
-		while (i <= mid && j <= e)
+		while (i <= mid && j <= end)
 		{
-			if (arr[i] < arr[j])
+			if (x[i] < y[j])
 			{
-				tmp[k++] = arr[i++];
+				nums[k++] = x[i++];
 			}
 			else
 			{
-				tmp[k++] = arr[j++];
+				nums[k++] = y[j++];
 			}
 		}
-
+		
 		while (i <= mid)
 		{
-			tmp[k++] = arr[i++];
-		}
-		while (j <= e)
-		{
-			tmp[k++] = arr[j++];
+			nums[k++] = x[i++];
 		}
 
-		for (int i = s; i <= e; i++)
+		while (j <= end)
 		{
-			arr[i] = tmp[i];
+			nums[k++] = y[j++];
+
 		}
+	
 	}
-	void MergeSort(int arr[], int s, int e)
+	void MergeSort(int nums[], int start, int end)
 	{
-		if (s >= e)
+		if (start >= end)
+			return;
+
+		int mid = (start + end) / 2;
+		int x[100], y[100];
+		for (int i = start; i <= mid; i++)
+		{
+			x[i] = nums[i];
+		}
+		for (int i = mid + 1; i <= end; i++)
+		{
+			y[i] = nums[i];
+		}
+
+		MergeSort(x, start, mid);
+		MergeSort(y, mid + 1, end);
+		MergeArrays(x, y, nums, start, end);
+	}
+
+	int Partition(int nums[], int start, int end)
+	{
+		int i = start;
+		int pivot = nums[end];
+		for (int j = start; j <= end - 1; j++)
+		{
+			if (nums[j] < pivot)
+			{
+				swap(nums[i], nums[j]);
+				i++;
+			}
+		}
+		swap(nums[i], nums[end]);
+		return i;
+;	}
+
+	void QuickSort(int nums[], int start, int end) 
+	{
+		if (start >= end)
 		{
 			return;
 		}
 
-		int mid = (s + e) / 2;
-		MergeSort(arr, s, mid);
-		MergeSort(arr, mid + 1, e);
-
-		MergeArray(arr, s, e);
+		int p = Partition(nums, start, end);
+		QuickSort(nums, start, p - 1);
+		QuickSort(nums, p + 1, end);
 	}
 
-	// LinkedList
-	void IPrintLinkedList(Node *head)
+	// Linked-List
+
+	void PrintLinkedList(Node*& head)
 	{
 		while (head != NULL)
 		{
@@ -499,10 +716,10 @@ public:
 		}
 		cout << "NULL" << endl;
 	}
-	int IGetLength(Node *head)
+	int GetLength(Node* head)
 	{
 		int count = 0;
-		while (head) 
+		while (head)
 		{
 			count++;
 			head = head->next;
@@ -510,17 +727,18 @@ public:
 		return count;
 	}
 
-	void IPrintLinkedListAtIndex(Node* head, int index)
+	void PrintNodeValue(Node* head, int index)
 	{
-		if (index < 0) { 
+		if (index < 0)
+		{
 			cout << "-1" << endl;
-			return; 
+			return;
 		}
 
 		int count = 1;
 		while (count <= index && head != NULL)
 		{
-			head = head->next;
+			head = head->next; 
 			count++;
 		}
 
@@ -533,9 +751,14 @@ public:
 			cout << "-1" << endl;
 		}
 	}
-	Node* IInsertLinkedListAtIndex(Node* head, int index, int value)
+	
+	Node* InsertNode(Node* head, int index, int value)
 	{
-		if (index < 0) { return head; }
+		if (index < 0)
+		{
+			return head;
+		}
+
 		if (index == 0)
 		{
 			Node* n = new Node(value);
@@ -543,9 +766,10 @@ public:
 			head = n;
 			return head;
 		}
-		Node* copy = head;
+
+		Node* headCopy = head;
 		int count = 1;
-		while (count <= index-1 && head != NULL)
+		while (count <= index - 1 && head != NULL)
 		{
 			head = head->next;
 			count++;
@@ -553,51 +777,52 @@ public:
 		if (head)
 		{
 			Node* n = new Node(value);
-			Node* tmp = head->next;
+			Node* t = head->next;
 			head->next = n;
-			n->next = tmp;
-			return copy;
+			n->next = t;
 
+			return headCopy;
+		
 		}
-		return copy;
+		return headCopy;
 	}
 
-	Node* IDeleteLinkedListAtIndex(Node* head, int index)
+	Node* DeleteNode(Node* head, int index)
 	{
-		if (index < 0) { return head; }
+		if (index < 0)
+		{
+			return head;
+		}
 
 		if (index == 0 && head)
 		{
-			Node* new_head = head->next;
+			Node* newHead = head->next;
 			head->next = NULL;
 			delete head;
-			return new_head;
+			return newHead;		
 		}
 
-		Node* curr = head;
+		Node* current = head;
 		int count = 1;
-		while (count <= index - 1 && curr != NULL)
+		while (count <= index - 1 && current != NULL)
 		{
-			curr = curr->next;
+			current = current->next;
 			count++;
 		}
-		if (curr && curr->next)
+
+		if (current && current->next)
 		{
-			Node* tmp = curr->next;
-			curr->next = curr->next->next;
-			tmp->next = NULL;
-			delete tmp;
+			Node* t = current->next;
+			current->next = current->next->next;
+			t->next = NULL;
+			delete t;
 			return head;
 		}
 		return head;
 	}
-	int RGetLength(Node* head)
-	{
-		if (head == NULL) { return 0; }
-		return 1 + RGetLength(head->next);
-	}
 
-	bool ISearchLinkedList(Node* head, int data)
+	
+	bool FindElement(Node* head, int data)
 	{
 		Node* curr = head;
 		while (curr != NULL)
@@ -610,151 +835,797 @@ public:
 		}
 		return false;
 	}
-	bool RSearchLinkedList(Node* head, int data)
+
+	bool RFindElement(Node* head, int data)
 	{
-		if (head == NULL) return false;
+		if (head == NULL)return false;
 		if (head->data == data) return true;
-		return RSearchLinkedList(head->next, data);
+		return RFindElement(head->next, data);
 	}
 
-	Node* IGetMiddleNode(Node *head)
+	Node* GetMiddleNode(Node* head)
 	{
 		Node* slow = head;
 		Node* fast = head->next;
+
 		while (fast && fast->next)
 		{
 			slow = slow->next;
 			fast = fast->next->next;
 		}
+
 		if (fast != NULL)
 		{
 			return slow->next;
 		}
 		return slow;
 	}
-	Node* IReverseLinkedList(Node*head)
+
+	Node* ReverseNodes(Node* head)
 	{
-		Node* current = head;
-		Node* prev = NULL, * next = NULL;
+		Node* curr = head;
+		Node* prev = NULL;
 
-		while (current != NULL)
+		while (curr != NULL)
 		{
-			// store next
-			next = current->next;
-			
-			// reverse current->next
-			current->next = prev;
-
-			// move pointer one position head
-			prev = current;
-			current = next;
+			Node* n = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = n;
 		}
-		head = prev;
-		return head;
+		return prev;
 	}
-	Node* RReverseLinkedList(Node* head)
-	{
-		if (head == NULL || head->next == NULL)
-		{
-			return head;
-		}
 
-		Node* rest = RReverseLinkedList(head->next);
-		head->next->next = head;
-
-		head->next = NULL;
-
-		return rest;
-	}
-	Node* IRemoveLinkedListNodeAtIndex(Node* head, int k)
+	Node* RemoveNode(Node* head, int K)
 	{
 		Node* one = head;
 		Node* two = head;
 
-		while (k--) { /// k times
+		while (K--)
+		{
 			two = two->next;
 		}
-		if (two == NULL) {   /// length of ll = k  => delete head node
+
+		if (two == NULL)
+		{
 			return one->next;
 		}
-		while (two->next != NULL) {
+
+		while (two->next != NULL)
+		{
 			one = one->next;
-			two = two->next;
+			two - two->next;
 		}
 
-		/// delete kth node from end
-		one->next = one->next->next;      /// memory leak
-
+		one->next = one->next->next;
+		
 		return head;
 	}
-
-	Node* IMergeLinkedList(Node* l1, Node* l2)
+	
+	Node* MergeNodes(Node* head1, Node* head2)
 	{
-		if (l1 == NULL) return l2;
-		if (l2 == NULL) return l1;
+		if (head1 == NULL)return head2;
+		if (head2 == NULL)return head1;
 
 		Node* finalHead = NULL;
 
-		if (l1->data < l2->data)
+		if (head1->data < head2->data)
 		{
-			finalHead = l1;
-			l1 = l1->next;
+			finalHead = head1;
+			head1 = head1->next;
 		}
 		else
 		{
-			finalHead = l2;
-			l2 = l2->next;
+			finalHead = head2;
+			head2 = head2->next;
 		}
-
 		Node* p = finalHead;
 
-		while (l1 && l2)
+		while (head1 && head2)
 		{
-			if (l1->data < l2->data)
+			if (head1->data < head2->data)
 			{
-				p->next = l1;
-				l1 = l1->next;
+				p->next = head1;
+				head1 = head1->next;
 			}
 			else
 			{
-				p->next = l2;
-				l2 = l2->next;
+				p->next = head2;
+				head2 = head2->next;
+			
 			}
 			p = p->next;
 		}
-
-		if (l1)
+		if (head1)
 		{
-			p->next = l1;
+			p->next = head1;
 		}
 		else
 		{
-			p->next = l2;
+			p->next = head2;
 		}
 		return finalHead;
 	}
-	
-	Node* RMergeLinkedList(Node* a, Node* b)
+
+	Node* RMergeNodes(Node* a, Node* b)
 	{
-		if (a == NULL) return b;
-		if (b == NULL) return a;
+		if (a == NULL)return b;
+		if (b == NULL)return a;
 
 		Node* newHead = NULL;
 		if (a->data < b->data)
 		{
 			newHead = a;
-			newHead->next = RMergeLinkedList(a->next, b);
+			newHead->next = RMergeNodes(a->next, b);
 		}
 		else
 		{
 			newHead = b;
-			newHead->next = RMergeLinkedList(a, b->next);
+			newHead->next = RMergeNodes(a, b->next);
 		}
+		
 		return newHead;
 	}
 
+	Node* SortList(Node* head)
+	{
+		if (head == NULL || head->next == NULL)
+		{
+			return head;
+		}
+		Node* slow = head;
+		Node* fast = head->next;
 
+		while (fast && fast->next)
+		{
+			slow = slow->next;
+			fast = fast->next->next;
+		}
+
+		Node* n = slow->next;
+		slow->next = NULL;
+
+		Node* a = SortList(head);
+		Node* b = SortList(n);
+
+		head = RMergeNodes(a, b);
+		return head;
+	}
+
+	// stacks
+	bool ValidParentheses(string A)
+	{
+		stack<char> stk;
+
+		for (int i = 0; i < A.size(); i++)
+		{
+			if (A[i] == '(' || A[i] == '[' || A[i] == '{' || A[i] == '<')
+			{
+				stk.push(A[i]);
+			}
+			else
+			{
+				if (stk.empty())return false;
+				else if (A[i] == ')')
+				{
+					if (stk.top() == '(')
+					{
+						stk.pop();
+					}
+					else { return false; }
+				}
+				else if (A[i] == ']')
+				{
+					if (stk.top() == '[')
+					{
+						stk.pop();
+					}
+					else { return false; }
+				}
+				else if (A[i] == '}')
+				{
+					if (stk.top() == '{')
+					{
+						stk.pop();
+					}
+					else { return false; }
+				}
+				else if (A[i] == '>')
+				{
+					if (stk.top() == '<')
+					{
+						stk.pop();
+					}
+					else { return false; }
+				}
+			
+			}
+		}
+
+		if (stk.empty())return true;
+		return false;
+	}
+
+	int EvaluateReversePolishNotation(vector<string>& tokens)
+	{
+		stack<int> st;
+
+		for (int i = 0; i < tokens.size(); i++)
+		{
+			if (tokens[i] == "+" || tokens[i] == "-" || tokens[i] == "*" || tokens[i] == "/")
+			{
+				int v1 = st.top();
+				st.pop();
+				int v2 = st.top();
+				st.pop();
+
+				if (tokens[i] == "+")
+				{
+					st.push(v2 + v1);
+				}
+				else if (tokens[i] == "-")
+				{
+					st.push(v2 - v1);
+				}
+				else if (tokens[i] == "*")
+				{
+					st.push(v2 * v1);
+				}
+				else if(tokens[i] == "/")
+				{
+					st.push(v2 / v1);
+				}
+			}
+			else
+			{
+				st.push(atoi(tokens[i].c_str()));
+			}
+		}
+		return st.top();
+
+	}
+
+	string RemoveDuplicates(string s)
+	{
+		int stptr = -1;
+		for (int i = 0; i < s.size(); i++)
+		{
+			if (stptr == -1 || s[i] != s[stptr])
+			{
+				stptr++;
+				s[stptr] = s[i];
+			}
+			else
+			{
+				stptr--;
+			}
+		}
+		string ans = "";
+		for (int i = 0; i <= stptr; i++)
+		{
+			ans.push_back(s[i]);
+		}
+		return ans;
+	}
+
+
+	// queues
+
+	void ReverseQueue(queue<int>& q)
+	{
+		stack<int> s;
+		while (!q.empty())
+		{
+			s.push(q.front());
+			q.pop();
+		}
+
+		while (!s.empty())
+		{
+			q.push(s.top());
+			s.pop();
+		}
+	}
+
+	// Generic Trees
+	
+	void PrintTree(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return;
+
+		}
+
+		cout << root->data << ": ";
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			cout << root->children[i]->data << ", ";
+		}
+		cout << endl;
+
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			PrintTree(root->children[i]);
+		}
+	}
+
+	TreeNode<int>* RecursiveInput()
+	{
+		int rootData;
+		cout << "Enter data" << endl;
+		cin >> rootData;
+
+		TreeNode<int>* root = new TreeNode<int>(rootData);
+
+		int n;
+		cout << " Enter number of children of " << rootData << endl;
+		cin >> n;
+
+		for (int i = 1; i <= n; i++)
+		{
+			TreeNode<int>* child = RecursiveInput();
+			root->children.push_back(child);
+		}
+		return root;
+	}
+
+	TreeNode<int>* LevelWiseInput()
+	{
+		int rootData;
+		cout << "Enter root data " << endl;
+		cin >> rootData;
+
+		TreeNode<int>* root = new TreeNode<int>(rootData);
+
+		queue<TreeNode<int>*> q;
+		q.push(root);
+
+		while (!q.empty())
+		{
+			TreeNode<int>* f = q.front();
+			q.pop();
+
+			cout << "Enter num of childnre of " << f->data << endl;
+
+			int n;
+			cin >> n;
+
+			for (int i = 1; i <= n; i++)
+			{
+				int childData;
+				cout << "Enter " << i << "th child of " << f->data << endl;
+				cin >> childData;
+				
+				TreeNode<int>* child = new TreeNode<int>(childData);
+
+				q.push(child);
+				f->children.push_back(child);
+			}
+		}
+	}
+
+	void PrintLevelOrder(TreeNode<int>* root)
+	{
+		queue<TreeNode<int>*> q;
+		q.push(root);
+		
+		while (!q.empty())
+		{
+			TreeNode<int>* f = q.front();
+			q.pop();
+
+			cout << f->data << ": ";
+			for (int i = 0; i < f->children.size(); i++)
+			{
+				cout << f->children[i]->data << ", ";
+			}
+			cout << endl;
+
+			for (int i = 0; i < f->children.size(); i++)
+			{
+				q.push(f->children[i]);
+			}
+		}
+	}
+	
+	int CountNodes(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+		int ans = 1;
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			ans += CountNodes(root->children[i]);
+		}
+		return ans;
+	}
+
+	int GetHeight(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+
+		int mx = 0;
+
+		for (int i = 0; i < root->children.size(); i++)
+		{
+		
+			mx = max(mx, GetHeight(root->children[i]));
+		}
+		return mx + 1;
+	}
+
+	void PrintTreeAtLevel(TreeNode<int>* root, int K)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+
+		if (K == 0)
+		{
+			cout << root->data << endl;
+			return;
+		}
+
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			PrintTreeAtLevel(root->children[i], K - 1);
+		}
+	}
+
+	int CountLeafNodes(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+
+		if (root->children.size() == 0)
+		{
+			return 1;
+		}
+
+		int ans = 0;
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			ans += CountLeafNodes(root->children[i]);
+		}
+		return ans;
+	}
+
+	void PreOrder(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		cout << root->data << " ";
+
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			PreOrder(root->children[i]);
+		}
+	}
+
+	void PostOrder(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		for (int i = 0; i < root->children.size(); i++)
+		{
+			PostOrder(root->children[i]);
+		}
+		cout << root->data << " ";
+	}
+
+	void DeleteTree(TreeNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+
+		for (int i = 0; i < root->children.size(); i++)
+		{
+		
+			DeleteTree(root->children[i]);
+		}
+		delete root;
+	}
+
+	// Binary Tree
+	void RPrintTree(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+
+		cout << root->data << ": ";
+		if (root->left != NULL)
+		{
+			cout << "L " << root->left->data;
+		}
+		if (root->right != NULL)
+		{
+			cout << "R " << root->right->data;
+		}
+		cout << endl;
+
+		RPrintTree(root->left);
+		RPrintTree(root->right);
+	}
+
+	BTNode<int>* BTTakeInput()
+	{
+		int rootData;
+		cout << "Enter data " << endl;
+		cin >> rootData;
+
+		if (rootData == -1)
+		{
+			return NULL;
+		}
+
+		BTNode<int>* root = new BTNode<int>(rootData);
+		BTNode<int>* leftChild = BTTakeInput();
+		BTNode<int>* rightChild = BTTakeInput();
+
+		root->left = leftChild;
+		root->right = rightChild;
+		return root;
+	}
+	BTNode<int>* BTTakeInputLevelWise()
+	{
+		int rootData;
+		cout << "Enter root data " << endl;
+		cin >> rootData;
+
+		BTNode<int>* root = new BTNode<int>(rootData);
+		queue<BTNode<int>*> q;
+		q.push(root);
+
+		while (!q.empty())
+		{
+			BTNode<int>* f = q.front();
+			q.pop();
+
+			cout << "Enter left child of " << f->data << endl;
+			int leftChildData;
+			cin >> leftChildData;
+
+			if (leftChildData != -1)
+			{
+				BTNode<int>* child = new BTNode<int>(leftChildData);
+				q.push(child);
+				f->left = child;
+			}
+
+			cout << "Enter right child of " << f->data << endl;
+			int rightChildData;
+			cin >> rightChildData;
+
+			if (rightChildData != -1)
+			{
+				BTNode<int>* child = new BTNode<int>(rightChildData);
+				q.push(child);
+				f->right = child;
+			}
+			
+		}
+		return root;
+	}
+
+	vector<vector<int>> LevelOrder(BTNode<int>* root)
+	{
+		vector<vector<int>> v;
+
+		if (root == NULL)
+		{
+			return v;
+		}
+
+		vector<int> tmp;
+
+		queue<BTNode<int>*>q;
+		q.push(root);
+		q.push(NULL);
+
+		while (!q.empty())
+		{
+			BTNode<int>* f = q.front();
+			q.pop();
+			if (f == NULL)
+			{
+				v.push_back(tmp);
+				tmp.clear();
+				if (!q.empty())
+				{
+					q.push(NULL);
+				}
+			}
+			else
+			{
+				tmp.push_back(f->data);
+				if (f->left)
+				{
+					q.push(f->left);
+				}
+				if (f->right)
+				{
+					q.push(f->right);
+				}
+			}
+		}
+		return v;
+	}
+
+	int CountNodes(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+		return CountNodes(root->left) + CountNodes(root->right) + 1;
+	}
+
+	void InOrder(BTNode<int>* root, vector<int>& ans)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+
+		InOrder(root->left, ans);
+		ans.push_back(root->data);
+		InOrder(root->right, ans);
+	
+	}
+	vector<int> TraverseInOrder(BTNode<int>* root)
+	{
+		vector<int> ans;
+		InOrder(root, ans);
+		return ans;
+	}
+
+	void PreOrder(BTNode<int>* root, vector<int>& ans)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		ans.push_back(root->data);
+		PreOrder(root->left, ans);
+		PreOrder(root->right, ans);
+	}
+
+	vector<int> TraversePreOrder(BTNode<int>* root)
+	{
+		vector<int> ans;
+		PreOrder(root, ans);
+		return ans;
+	}
+
+	void PostOrder(BTNode<int>* root, vector<int>& ans)
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		PostOrder(root->left, ans);
+		PostOrder(root->right, ans);
+		ans.push_back(root->data);
+	}
+
+	vector<int> TraversePostOrder(BTNode<int>* root)
+	{
+		vector<int> ans;
+
+		PostOrder(root, ans);
+		
+		return ans;
+	}
+
+	int MaxDepth(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+
+		int left = MaxDepth(root->left);
+		int right = MaxDepth(root->right);
+
+		return max(left, right) + 1;
+	}
+
+	bool BTreeHelper(BTNode<int>* left, BTNode<int>* right)
+	{
+		if (left == NULL && right != NULL) return false;
+		if (left != NULL && right == NULL) return false;
+		if (left == NULL && right == NULL) return true;
+
+		if (left->data != right->data) return false;
+	
+		return BTreeHelper(left->left, right->right) && BTreeHelper(left->right, right->left);
+	}
+
+	bool IsSymmetricTree(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return true;
+		}
+		return BTreeHelper(root->left, root->right);
+	}
+
+	bool FindNode(BTNode<int>* root, int key)
+	{
+		if (root == NULL)
+		{
+			return false;
+		}	
+		if (root->data == key)
+		{
+			return true;
+		}
+		return (FindNode(root->left, key) || FindNode(root->right, key));
+	}
+
+
+	int MinimumValue(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return INT_MAX;
+		}
+
+		int left_min = MinimumValue(root->left);
+		int right_min = MinimumValue(root->right);
+
+		return min(root->data, min(left_min, right_min));
+	}
+
+	int MaximumValue(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return INT_MIN;
+		}
+
+		int left_max = MaximumValue(root->left);
+		int right_max = MaximumValue(root->right);
+
+		return max(root->data, max(left_max, right_max));
+	}
+
+	int CountLeafNodes(BTNode<int>* root)
+	{
+		if (root == NULL)
+		{
+			return 0;
+		}
+
+		if (root->left == NULL && root->right == NULL)
+		{
+			return 1;
+		}
+
+		return CountLeafNodes(root->left) + CountLeafNodes(root->right);
+	
+	}
 
 };
+
+
+
 
 #endif
