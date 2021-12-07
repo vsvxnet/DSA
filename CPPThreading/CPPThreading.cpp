@@ -554,7 +554,7 @@ int main()
     // RunAlotOfThreads();
     // RunThreadPool();
     // RunDistributedWorkBetweenCores();
-     RunDistributedWorkBetweenCoresWiithDuration();
+     RunDistributedWorkBetweenCoresWithDuration();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
